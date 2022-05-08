@@ -1,0 +1,7 @@
+---
+- hosts: all
+  become: true
+  roles:
+    - role-install-nginx
+    - role-metricbeat
+    - role-filebeat

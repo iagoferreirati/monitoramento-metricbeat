@@ -1,0 +1,26 @@
+---
+- name: Install Losgstash
+  yum: 
+    name: https://artifacts.elastic.co/downloads/logstash/logstash-7.12.0-x86_64.rpm
+    state: present
+
+- name: copy pipelines.yml
+  copy:
+    src: pipeline.yml
+    dest: /etc/logstash/pipelines.yml
+
+- name: copy filebeat.conf
+  copy:
+    src: filebeat.conf
+    dest: /etc/logstash/conf.d/filebeat.conf
+
+- name: copy metricbeat.conf
+  copy:
+    src: metricbeat.conf
+    dest: /etc/logstash/conf.d/metricbeat.conf    
+
+- name: Start service logstash
+  service:
+    name: logstash
+    state: started
+    enabled: yes    

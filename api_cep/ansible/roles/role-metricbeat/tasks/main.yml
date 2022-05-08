@@ -1,0 +1,20 @@
+---
+- name: install the metricbeat rpm from a remote repo
+  yum:
+    name: https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-{{ metricbeat_version }}-x86_64.rpm
+    state: present
+
+- name: Copy metricbeat.yml
+  template:
+   src: ./templates/metricbeat.yml.j2
+   dest: /etc/metricbeat/metricbeat.yml
+   owner: root
+   group: root
+   mode: 0644
+
+- name: Start Metricbeat
+  service:
+    name: metricbeat
+    state: restarted
+    enabled: yes
+       
